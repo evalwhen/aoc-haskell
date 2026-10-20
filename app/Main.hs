@@ -4,5 +4,5 @@ module Main (main) where
 import qualified Year2023.Day12 as Day12
 
 main :: IO ()
-main = Day12.solve1
+main = Day12.solve2
 
