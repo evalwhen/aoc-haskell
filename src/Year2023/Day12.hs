@@ -110,7 +110,7 @@ solve2 = do
 
 -- dp 版本
 
-
+-- st means stack
 countLine' :: String -> [Int] -> Int
 countLine' s st = table ! (0, 0, 0)
   where
@@ -129,13 +129,13 @@ countLine' s st = table ! (0, 0, 0)
     go si k sti
       | si == sl    = if sti == stl then fromEnum (k == 0)
                     else fromEnum (sti == stl - 1 && k == sta ! sti)
-      | k > limit = 0
+      | k > sta ! sti = 0
       | c == '#'  = table ! (si + 1, k + 1, sti)
       | c == '.'  = close
       | otherwise = table ! (si + 1, k + 1, sti) + close   -- '?'
       where
         c     = sa ! si
-        limit = if sti < stl then sta ! sti else 0
+        -- limit = if sti < stl then sta ! sti else 0
         close | k == 0                = table ! (si + 1, 0, sti)
               | sti < stl && k == sta ! sti   = table ! (si + 1, 0, sti + 1)
               | otherwise             = 0
