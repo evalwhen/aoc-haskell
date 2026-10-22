@@ -28,13 +28,13 @@ parseLine :: String -> Maybe (String, [Int])
 parseLine = parse
   where
     parse str = 
-        case (readP_to_S $ parseLineP <* eof) str of
+        case readP_to_S  parseLineP str of
             [] -> Nothing
             (v :_) -> Just $ fst v
 
 
 parseLineP :: ReadP (String, [Int])
-parseLineP =  (,) <$> left <*> (space *> right)
+parseLineP =  (,) <$> left <*> (space *> right) <* eof
   where
     left :: ReadP String
     left = many1 $ choice [char '.', char '#', char '?']
